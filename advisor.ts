@@ -179,13 +179,17 @@ export default function (pi: ExtensionAPI) {
 	pi.on("input", async (event, ctx) => {
 		if (!config.enabled || !config.advisorModel) return { action: "continue" as const };
 		const rt = ensureRuntime(pi);
-		void rt.onInput(event.text, {
-			signal: ctx.signal,
-			cwd: ctx.cwd,
-			modelRegistry: ctx.modelRegistry,
-			getApiKeyAndHeaders: (m) => ctx.modelRegistry.getApiKeyAndHeaders(m),
-			projectInstructions: activeInstructions(ctx.cwd, ctx.isProjectTrusted()),
-		});
+		void rt.onInput(
+			event.text,
+			{
+				signal: ctx.signal,
+				cwd: ctx.cwd,
+				modelRegistry: ctx.modelRegistry,
+				getApiKeyAndHeaders: (m) => ctx.modelRegistry.getApiKeyAndHeaders(m),
+				projectInstructions: activeInstructions(ctx.cwd, ctx.isProjectTrusted()),
+			},
+			event.source,
+		);
 		return { action: "continue" as const };
 	});
 

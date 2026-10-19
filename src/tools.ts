@@ -13,12 +13,12 @@
  * they can be passed straight to `complete({ tools })`.
  */
 
-import { Type } from "@earendil-works/pi-ai";
 import type { Api, Model, ThinkingLevel, Tool } from "@earendil-works/pi-ai";
 import type { ModelThinkingLevel } from "@earendil-works/pi-ai";
 import { execFile } from "node:child_process";
 import { open, readdir, readFile, stat } from "node:fs/promises";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { Type } from "typebox";
 import type { AdvisorSeverity } from "./index.js";
 
 /** Hard cap on a single `read` result (chars). Mirrors pi core's read truncation. */

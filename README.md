@@ -7,7 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/%40hazrid1993%2Fpi-advisor?logo=npm&label=npm)](https://www.npmjs.com/package/@hazrid1993/pi-advisor)
 [![npm downloads](https://img.shields.io/npm/dm/%40hazrid1993%2Fpi-advisor?label=npm%20downloads)](https://www.npmjs.com/package/@hazrid1993/pi-advisor)
 [![Pi package](https://img.shields.io/badge/Pi-package_catalog-8A2BE2)](https://pi.dev/packages/@hazrid1993/pi-advisor)
-[![pi 1.0+ · tested 1.2.0](https://img.shields.io/badge/pi-%3E%3D1.0%20%C2%B7%20tested%201.2.0-8A2BE2)](https://github.com/earendil-works/pi-coding-agent)
+[![pi 1.0+ · tested 1.3.0](https://img.shields.io/badge/pi-%3E%3D1.0%20%C2%B7%20tested%201.3.0-8A2BE2)](https://github.com/earendil-works/pi-coding-agent)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 </div>
@@ -441,7 +441,7 @@ The queue is single-flight, so advisor reviews never overlap. Epoch guards disca
 
 ## Development
 
-Requires pi **1.0 or newer**: the advisor calls its model through pi's `ctx.modelRegistry.streamSimple()`, so it uses pi's own request-time auth, virtual-model routing, and header transforms. For pi 0.8x, install `@hazrid1993/pi-advisor@0.7.0`. Validated against `@earendil-works/pi-*` **1.2.0** (type-check, full test suite, and a live advisor review in pi 1.2.0). Also handles the pi 0.84.0 breaking change where `ModelRegistry.getApiKeyAndHeaders()` returns `ProviderHeaders` with `null` header-deletion markers plus credential-resolved `baseUrl`/`env`, all forwarded to the advisor's pi-ai stream unchanged).
+Requires pi **1.0 or newer**: the advisor calls its model through pi's `ctx.modelRegistry.streamSimple()`, so it uses pi's own request-time auth, virtual-model routing, and header transforms. For pi 0.8x, install `@hazrid1993/pi-advisor@0.7.0`. Validated against `@earendil-works/pi-*` **1.3.0** (type-check, full test suite, and a warning-free load through pi 1.3.0's package loader). Host-provided modules (`@earendil-works/pi-*`, `typebox`) are `"*"` peer dependencies, so pi supplies its own copies instead of installing duplicates. Also handles the pi 0.84.0 breaking change where `ModelRegistry.getApiKeyAndHeaders()` returns `ProviderHeaders` with `null` header-deletion markers plus credential-resolved `baseUrl`/`env`, all forwarded to the advisor's pi-ai stream unchanged).
 
 ```bash
 npm install
