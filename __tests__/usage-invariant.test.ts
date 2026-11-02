@@ -51,9 +51,21 @@ function loadParseChunkUsage(): (rawUsage: RawUsage) => {
 	const end = source.indexOf("\n}\n", start);
 	if (end < 0) throw new Error("parseChunkUsage end not found");
 	const fnSource = source.slice(start, end + 3);
+	// pi-ai 1.5 makes parseChunkUsage model-aware: it calls calculateCost (which
+	// we stub because cost math is irrelevant to the invariant) and, for
+	// OpenRouter models, layers reported billing onto `usage.cost`. The
+	// OpenRouter branch only touches `cost`, so stubbing it off keeps the
+	// assertion focused on the input/cacheRead/cacheWrite split.
 	// eslint-disable-next-line @typescript-eslint/no-implied-eval
-	const parseChunkUsage = new Function("calculateCost", `${fnSource}; return (rawUsage) => parseChunkUsage(rawUsage, null);`)(
-		() => {}, // stub: cost math is irrelevant to the invariant
+	const parseChunkUsage = new Function(
+		"calculateCost",
+		"isOpenRouterModel",
+		"applyOpenRouterReportedCost",
+		`${fnSource}; return (rawUsage) => parseChunkUsage(rawUsage, null);`,
+	)(
+		() => {},
+		() => false,
+		() => {},
 	) as ReturnType<typeof loadParseChunkUsage>;
 	return parseChunkUsage;
 }

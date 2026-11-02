@@ -330,6 +330,11 @@ async function tryRipgrep(
 ): Promise<string | null> {
 	return new Promise((resolve) => {
 		const args = [
+			// `--no-config` ignores RIPGREP_CONFIG_PATH and rg's own config file. Pi's
+			// built-in grep tool got the same fix (pi 1.4, #11203) after a user's config
+			// (e.g. `--fixed-strings`) silently turned regex searches into literal ones,
+			// which here would quietly hand the advisor wrong "no matches" results.
+			"--no-config",
 			"--no-heading",
 			"--line-number",
 			"--color=never",
